@@ -37,23 +37,24 @@ function fetchMealsByDate(date){
 }
 
 function App() {
-  const [meals, setMeals] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [today, setToday] = useState('')
-  useEffect(() => {
-    let todayDate = new Date() 
-    let formatedDate = 
+  let todayDate = new Date()
+  let formatedDate = 
     todayDate.getFullYear() + 
     "-"+ 
     String(todayDate.getMonth()+1 < 10 ? "0" + (todayDate.getMonth()+1): (todayDate.getMonth()+1)) +
     "-"+ 
-    String(todayDate.getDay() < 10 ? "0" + todayDate.getDay(): todayDate.getDay());
+    String(todayDate.getDate() < 10 ? "0" + todayDate.getDate(): todayDate.getDate());
 
+  const [meals, setMeals] = useState(fetchMealsByDate(formatedDate));
+  const [loading, setLoading] = useState(true);
+  const [today, setToday] = useState('')
+  useEffect(() => {
     setToday(formatedDate)
 
-    fetchMealsByDate(today).then(data => {setMeals(data); setLoading(false)});
-  }, []);
+    fetchMealsByDate(today).then(data => {setMeals(data); setLoading(false);});
+  }, [today]);
 
+  console.log(meals)
 
   return (
     <>
@@ -62,7 +63,7 @@ function App() {
       ) : (
         <>
           <p>Current meals: {meals.length > 0 ? JSON.stringify(meals[0]) : "No meals available"}</p>
-          {meals.length != 0 && <ProductTable meals={meals} setMeals={setMeals} />}
+          {meals.length > 0 && <ProductTable meals={meals} setMeals={setMeals} />}
         </>
       )}
     </>
