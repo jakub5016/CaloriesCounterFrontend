@@ -54,7 +54,6 @@ function App() {
     fetchMealsByDate(today).then(data => {setMeals(data); setLoading(false);});
   }, [today]);
 
-  console.log(meals)
 
   return (
     <>
