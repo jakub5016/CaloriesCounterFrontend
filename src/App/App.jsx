@@ -27,7 +27,7 @@ function fetchMealsByDate(date){
   })
   .then(response => {
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error('Network response was not ok https://localhost:7261/api/meals/' +date);
     }
     return response.json();
   })
@@ -51,7 +51,7 @@ function App() {
   useEffect(() => {
     setToday(formatedDate)
 
-    fetchMealsByDate(today).then(data => {setMeals(data); setLoading(false);});
+    fetchMealsByDate(formatedDate).then(data => {setMeals(data); setLoading(false);});
   }, [today]);
 
 
