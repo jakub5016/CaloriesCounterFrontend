@@ -16,6 +16,13 @@ const mealTypes = [
     "Dinner",
     "Supper"
 ]
+
+function handleDelete(mealId, productId){
+  console.log('https://localhost:7261/api/Meals/' + (mealId) + '/Products/' + (productId))
+  fetch('https://localhost:7261/api/Meals/' + (mealId) + '/Products/' + (productId), {method: "DELETE"})
+  window.location.reload()
+}
+
 export default function ProductsTable(props) {
   const navigate = useNavigate()
   
@@ -48,7 +55,10 @@ export default function ProductsTable(props) {
                     <TableCell align="right">{row.fat}</TableCell>
                     <TableCell align="right">{row.carbs}</TableCell>
                     <TableCell align="right" sx={{borderRight: "1px solid"}}>{row.protein}</TableCell>
-                    <IconButton style={{border:"1px solid", color:"primary", marginRight: "0px"}}><RemoveIcon/></IconButton>
+                    <IconButton 
+                      style={{border:"1px solid", color:"primary", marginRight: "0px"}}
+                      onClick={()=>{handleDelete(column.id,row.id)}}
+                      ><RemoveIcon/></IconButton>
                 </TableRow>
                 ))
             }
