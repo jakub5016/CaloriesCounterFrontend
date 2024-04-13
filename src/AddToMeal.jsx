@@ -7,7 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, IconButton } from '@mui/material';
+import { Button, IconButton, InputBase } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 function fetchAllProducts(){
   return fetch('https://localhost:7261/api/ProductControler')
@@ -26,6 +27,35 @@ function appendMealList(id, data, amountArray){
   amountArray.map((ammout, index)=>{
     return fetch('https://localhost:7261/api/Meals/' + id + '/AppendProduct/' + data[index].id + "/" + ammout, {method: "PATCH"})
   })
+}
+
+function handleSearch(text, setData, setAmountArray){
+  if ((text != null) && (text != "")){
+    fetch('https://localhost:7261/api/ProductControler/search?search='+text, {method:"POST"})
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      setData(data);
+      setAmountArray(new Array(data.length).fill(0));
+    })
+    .catch(error => {
+      console.error('There was a problem with your fetch operation:', error);
+    });
+  }
+  else{
+    fetchAllProducts()
+      .then(data => {
+        setData(data);
+        setAmountArray(new Array(data.length).fill(0));
+      })
+      .catch(error => {
+        console.error('Error fetching product data:', error);
+      });
+  }
 }
 
 function AddToMeal() {
@@ -53,9 +83,13 @@ function AddToMeal() {
   };
 
   return (
-    <Paper>
+    <Paper style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
       <h1>Add To Meal</h1>
       <p>Meal ID: {id}</p>
+      <div style={{display:"flex", justifyContent:"center"}}>
+        <SearchIcon />
+        <InputBase sx= {{marginLeft: "3px"}} placeholder="Wyszukaj" onChange={e => handleSearch(e.target.value, setData, setAmountArray)}/>
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
