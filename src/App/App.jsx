@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import ProductTable from '../ProductsTable';
 import DatesBar from '../datesBar/DatesBar';
+import ProgressBar from '../progressBar/ProgressBar';
+import { LinearProgress, Paper } from '@mui/material';
 
 function fetchMeals() {
   return fetch('https://localhost:7261/api/Meals', {
@@ -81,10 +83,13 @@ function App() {
     <div style={{display: "flex", flexDirection:"column"}}>
       <DatesBar width={width + "px"} selectedDay={selectedDay} setSelectedDay={setSelectedDay}/>
       {loading ? (
-        <p>Loading...</p>
+        <LinearProgress color="primary" />
       ) : (
         <>
           {meals.length > 0 && <ProductTable meals={meals} setMeals={setMeals} />}
+          <Paper sx={{paddingBottom: "8px"}}>
+            <ProgressBar variant="determinate" value={30}/>
+          </Paper>
         </>
       )}
     </div>
