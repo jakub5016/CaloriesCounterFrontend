@@ -51,9 +51,9 @@ export default function ProductsTable(props) {
                     {row.name}
                     </TableCell>
                     <TableCell align="right">{column.ammoutOfProduct[index]}</TableCell>
-                    <TableCell align="right">{row.kcal}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
+                    <TableCell align="right">{row.kcal/100*column.ammoutOfProduct[index]}</TableCell>
+                    <TableCell align="right">{row.fat/100*column.ammoutOfProduct[index]}</TableCell>
+                    <TableCell align="right">{row.carbs/100*column.ammoutOfProduct[index]}</TableCell>
                     <TableCell align="right" sx={{borderRight: "1px solid"}}>{row.protein}</TableCell>
                     <IconButton 
                       style={{border:"1px solid", color:"primary", marginRight: "0px"}}
@@ -64,14 +64,12 @@ export default function ProductsTable(props) {
             }
 
                 <TableRow>
-                <TableCell sx={{ fontWeight: 'bold', color:"green"}}> Calories for this meal:</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', color:"green"}}> Total:</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }}> </TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}> </TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}> </TableCell>
-                <TableCell sx={{ fontWeight: 'bold' }}> </TableCell>
-
-                  <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green", borderRight: "1px solid" }} >{column.kcalForMeal}</TableCell>
-
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.kcalForMeal}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.fatForMeal}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.carbsForMeal}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green", borderRight: "1px solid" }} >{column.proteinForMeal}</TableCell>
                 </TableRow>
         </TableBody>
       </Table>

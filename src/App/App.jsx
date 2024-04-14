@@ -71,13 +71,31 @@ function App() {
   const [meals, setMeals] = useState(fetchMealsByDate(formatedDate));
   const [loading, setLoading] = useState(true);
   const [width, setWidth] = useState(window.innerWidth);
-
+  const [dayMacro, setDayMacro] = useState({})
 
   useEffect(() => {
     fetchMealsByDate(formatedDate).then(data => {setMeals(data); setLoading(false);});
     setWidth(window.innerWidth)
   }, [selectedDay]);
 
+  useEffect(()=>{
+    console.log(meals)
+    let correctDayMacro = {kcal: 0, protein:0, fat:0, carbs:0}
+    let i =0 
+    while (i < 3){
+      if (meals[i] != undefined){
+        if (meals[i].kcalForMeal != undefined){
+          correctDayMacro.kcal += meals[i].kcalForMeal
+          correctDayMacro.protein += meals[i].proteinForMeal
+          correctDayMacro.fat += meals[i].fatForMeal
+          correctDayMacro.carbs += meals[i].carbsForMeal
+        }
+      }
+      i++;
+    }
+
+    setDayMacro(correctDayMacro)
+  }, [meals])
 
   return (
     <div style={{display: "flex", flexDirection:"column"}}>
@@ -88,7 +106,7 @@ function App() {
         <>
           {meals.length > 0 && <ProductTable meals={meals} setMeals={setMeals} />}
           <Paper sx={{paddingBottom: "8px"}}>
-            <ProgressBar variant="determinate" value={30}/>
+            <ProgressBar dayMacro={dayMacro} variant="determinate" value={30}/>
           </Paper>
         </>
       )}
