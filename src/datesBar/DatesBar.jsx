@@ -38,7 +38,6 @@ function DatesBar(props){
         buttonWidth =  (props.width/11).toString() + "px"
         fontNormalSize = Math.abs(fontNormalSize - (700- props.width)/50) + "px"
     }
-
     return(
         <Paper sx={{
             width: screenWidth, 

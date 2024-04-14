@@ -89,17 +89,17 @@ function App() {
 
   useEffect(() => {
     fetchMealsByDate(formatedDate).then(data => {setMeals(data); setLoading(false);});
+    setWidth(window.innerWidth)
   }, [selectedDay]);
 
 
   return (
     <div style={{display: "flex", flexDirection:"column"}}>
-      <DatesBar width={width} selectedDay={selectedDay} setSelectedDay={setSelectedDay}/>
+      <DatesBar width={width + "px"} selectedDay={selectedDay} setSelectedDay={setSelectedDay}/>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <>
-          <p>Current meals: {meals.length > 0 ? JSON.stringify(meals[0]) : "No meals available"}</p>
           {meals.length > 0 && <ProductTable meals={meals} setMeals={setMeals} />}
         </>
       )}
