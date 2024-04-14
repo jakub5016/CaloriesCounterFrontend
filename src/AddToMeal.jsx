@@ -62,7 +62,6 @@ function AddToMeal() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [amountArray, setAmountArray] = useState([]);
-  console.log(amountArray)
   useEffect(() => {
     fetchAllProducts()
       .then(data => {
