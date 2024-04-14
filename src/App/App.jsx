@@ -33,19 +33,6 @@ function fetchMealsByDate(date){
     return response.json();
   })
   .then(data => {
-    // let correctData = [{type: 1, products: []},{type: 2, products: []},{type: 3, products: []}]
-    // correctData.map(((e, index) =>{
-    //   console.log("AAA")
-    //   console.log(data[index])
-    //   if (data[index] == undefined){
-    //     return e
-    //   }
-    //   else if (e.type == data[index]){
-    //     console.log("AA")
-    //     return data[index]
-    //   }
-    // }))
-    // console.log("DATA")
     let correctData = []
     let i = 1
     while (i <= 3){
@@ -64,8 +51,6 @@ function fetchMealsByDate(date){
       i++
     }
 
-
-    console.log(correctData)
     return correctData
   })
   .catch(error => {
@@ -75,16 +60,15 @@ function fetchMealsByDate(date){
 
 function App() {
   const [selectedDay, setSelectedDay] = useState(new Date().toLocaleDateString())
-  let formatedDate = selectedDay.slice(-4) + "-" + selectedDay.slice(3, 5) + "-" + selectedDay.slice(0, 2)
+  let formatedDate = selectedDay.slice(-4) + "-" + selectedDay.slice(-7, -5) + "-" + selectedDay.slice(0, 2)
+  if (formatedDate[-1] == '.'){
+    formatedDate = selectedDay.slice(-4) + "-" + selectedDay.slice(2, 4) + "-" + selectedDay[0]
+  }
+
+  console.log(formatedDate)
   const [meals, setMeals] = useState(fetchMealsByDate(formatedDate));
   const [loading, setLoading] = useState(true);
   const [width, setWidth] = useState(window.innerWidth);
-  // let formatedDate = 
-  // selectedDay.getFullYear() + 
-  // "-"+ 
-  // String(todayDate.getMonth()+1 < 10 ? "0" + (todayDate.getMonth()+1): (todayDate.getMonth()+1)) +
-  // "-"+ 
-  // String(todayDate.getDate() < 10 ? "0" + todayDate.getDate(): todayDate.getDate());
 
 
   useEffect(() => {

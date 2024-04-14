@@ -114,7 +114,7 @@ function DatesBar(props){
                     </Button>
 
                     <div style={{
-                            backgroundColor: props.selectedDay.slice(0,5) == date ? "purple" :"white",
+                            backgroundColor: props.selectedDay.slice(0,5) == date ? "blue" :"white",
                             height: "3px",
                             width: "auto"
                     }}/> 
