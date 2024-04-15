@@ -24,19 +24,17 @@ function fetchAllProducts(){
 }
 
 function appendMealList(id, data, amountArray, date=null, type=null){
-
-  let ids = amountArray.map((ammout, index)=>{
+  let ids = []
+  amountArray.map((ammout, index)=>{
     if (ammout != 0){
-      return data[index].id
+      ids.push(data[index].id)
     }
   })
-
-  let ammounts = amountArray.map((ammout)=>{
+  
+  let ammounts = []
+  amountArray.map((ammout)=>{
     if (ammout != 0){
-      return ammout
-    }
-    else{
-      return null
+      ammounts.push(ammout)
     }
   })
 
