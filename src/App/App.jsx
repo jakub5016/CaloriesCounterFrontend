@@ -39,9 +39,9 @@ function fetchMealsByDate(date){
     let i = 1
     while (i <= 3){
       if (data != undefined){
-        
+        console.log(data)
         data.forEach((e, index) =>{
-          if (e.id == i){
+          if (e.type == i){
             correctData.push(e)
           }
         })
@@ -67,7 +67,6 @@ function App() {
     formatedDate = selectedDay.slice(-4) + "-" + selectedDay.slice(2, 4) + "-" + selectedDay[0]
   }
 
-  console.log(formatedDate)
   const [meals, setMeals] = useState(fetchMealsByDate(formatedDate));
   const [loading, setLoading] = useState(true);
   const [width, setWidth] = useState(window.innerWidth);
@@ -79,7 +78,6 @@ function App() {
   }, [selectedDay]);
 
   useEffect(()=>{
-    console.log(meals)
     let correctDayMacro = {kcal: 0, protein:0, fat:0, carbs:0}
     let i =0 
     while (i < 3){

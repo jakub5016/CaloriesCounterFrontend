@@ -54,7 +54,7 @@ export default function ProductsTable(props) {
                     <TableCell align="right">{row.kcal/100*column.ammoutOfProduct[index]}</TableCell>
                     <TableCell align="right">{row.fat/100*column.ammoutOfProduct[index]}</TableCell>
                     <TableCell align="right">{row.carbs/100*column.ammoutOfProduct[index]}</TableCell>
-                    <TableCell align="right" sx={{borderRight: "1px solid"}}>{row.protein}</TableCell>
+                    <TableCell align="right">{row.protein}</TableCell>
                     <IconButton 
                       style={{border:"1px solid", color:"primary", marginRight: "0px"}}
                       onClick={()=>{handleDelete(column.id,row.id)}}
@@ -69,7 +69,7 @@ export default function ProductsTable(props) {
                 <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.kcalForMeal}</TableCell>
                 <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.fatForMeal}</TableCell>
                 <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.carbsForMeal}</TableCell>
-                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green", borderRight: "1px solid" }} >{column.proteinForMeal}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.proteinForMeal}</TableCell>
                 </TableRow>
         </TableBody>
       </Table>

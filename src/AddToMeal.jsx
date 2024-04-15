@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -24,9 +24,48 @@ function fetchAllProducts(){
 }
 
 function appendMealList(id, data, amountArray){
-  amountArray.map((ammout, index)=>{
-    return fetch('https://localhost:7261/api/Meals/' + id + '/AppendProduct/' + data[index].id + "/" + ammout, {method: "PATCH"})
-  })
+  if (id == "undefined"){
+    console.log(amountArray)
+    let ids = amountArray.map((ammout, index)=>{
+      if (ammout != 0){
+        return data[index].id
+      }
+    })
+
+    let ammounts = amountArray.map((ammout)=>{
+      if (ammout != 0){
+        return ammout
+      }
+    })
+    
+    console.log(JSON.stringify({
+      type: 1,
+      date: "2024-04-15",
+      productIds : ids,
+      ammoutOfProduct :ammout
+    }))
+
+
+    return fetch('https://localhost:7261/api/Meals/',{
+      method: "POST",
+      body: JSON.stringify({
+        type: 1,
+        date: "2024-04-15",
+        productIds : ids,
+        ammoutOfProduct :ammout
+      }),
+      headers: {
+        'accept': 'text/plain', 'Content-Type': 'application/json'
+      }
+    })
+  }
+  else{
+    console.log(id)
+    amountArray.map((ammout, index)=>{
+      return fetch('https://localhost:7261/api/Meals/' + id + '/AppendProduct/' + data[index].id + "/" + ammout, {method: "PATCH"})
+    })
+  }
+
 }
 
 function handleSearch(text, setData, setAmountArray){
