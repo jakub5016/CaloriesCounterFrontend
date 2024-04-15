@@ -39,7 +39,6 @@ function fetchMealsByDate(date){
     let i = 1
     while (i <= 3){
       if (data != undefined){
-        console.log(data)
         data.forEach((e, index) =>{
           if (e.type == i){
             correctData.push(e)
@@ -102,7 +101,7 @@ function App() {
         <LinearProgress color="primary" />
       ) : (
         <>
-          {meals.length > 0 && <ProductTable meals={meals} setMeals={setMeals} />}
+          {meals.length > 0 && <ProductTable meals={meals} setMeals={setMeals} selectedDay={formatedDate}/>}
           <Paper sx={{paddingBottom: "8px"}}>
             <ProgressBar dayMacro={dayMacro} variant="determinate" value={30}/>
           </Paper>

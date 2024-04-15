@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -23,36 +23,38 @@ function fetchAllProducts(){
     });
 }
 
-function appendMealList(id, data, amountArray){
-  if (id == "undefined"){
-    console.log(amountArray)
-    let ids = amountArray.map((ammout, index)=>{
-      if (ammout != 0){
-        return data[index].id
-      }
-    })
+function appendMealList(id, data, amountArray, date=null, type=null){
 
-    let ammounts = amountArray.map((ammout)=>{
-      if (ammout != 0){
-        return ammout
-      }
-    })
-    
-    console.log(JSON.stringify({
-      type: 1,
-      date: "2024-04-15",
-      productIds : ids,
-      ammoutOfProduct :ammout
-    }))
+  let ids = amountArray.map((ammout, index)=>{
+    if (ammout != 0){
+      return data[index].id
+    }
+  })
 
+  let ammounts = amountArray.map((ammout)=>{
+    if (ammout != 0){
+      return ammout
+    }
+    else{
+      return null
+    }
+  })
 
-    return fetch('https://localhost:7261/api/Meals/',{
+  console.log(JSON.stringify({
+    type: type,
+    date: date,
+    productIds : ids,
+    ammoutOfProduct :ammounts
+  }))
+
+  if ((id == "undefined") && ((date != null) && (type !=null))){
+    return fetch('https://localhost:7261/api/Meals',{
       method: "POST",
       body: JSON.stringify({
-        type: 1,
-        date: "2024-04-15",
+        type: type,
+        date: date,
         productIds : ids,
-        ammoutOfProduct :ammout
+        ammoutOfProduct :ammounts
       }),
       headers: {
         'accept': 'text/plain', 'Content-Type': 'application/json'
@@ -60,9 +62,11 @@ function appendMealList(id, data, amountArray){
     })
   }
   else{
-    console.log(id)
     amountArray.map((ammout, index)=>{
-      return fetch('https://localhost:7261/api/Meals/' + id + '/AppendProduct/' + data[index].id + "/" + ammout, {method: "PATCH"})
+      if ((ammout != null) && (ammout != 0)){
+        return fetch('https://localhost:7261/api/Meals/' + id + '/AppendProduct/' + data[index].id + "/" + ammout, {method: "PATCH"})
+
+      }
     })
   }
 
@@ -99,8 +103,11 @@ function handleSearch(text, setData, setAmountArray){
 
 function AddToMeal() {
   const { id } = useParams();
+  const { state } = useLocation();
+  console.log(state)
   const [data, setData] = useState(null);
   const [amountArray, setAmountArray] = useState([]);
+  const navigate = useNavigate()
   useEffect(() => {
     fetchAllProducts()
       .then(data => {
@@ -162,7 +169,7 @@ function AddToMeal() {
         </Table>
       </TableContainer>
 
-      <Button onClick={() => appendMealList(id, data, amountArray)}>Submit</Button>
+      <Button onClick={() => {appendMealList(id, data, amountArray, state.date, state.type);  navigate("/"); window.location.reload();}}>Submit</Button>
     </Paper>
   );
 }

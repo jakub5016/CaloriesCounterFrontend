@@ -66,15 +66,22 @@ export default function ProductsTable(props) {
                 <TableRow>
                 <TableCell sx={{ fontWeight: 'bold', color:"green"}}> Total:</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }}> </TableCell>
-                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.kcalForMeal}</TableCell>
-                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.fatForMeal}</TableCell>
-                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.carbsForMeal}</TableCell>
-                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.proteinForMeal}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.kcalForMeal != null ? column.kcalForMeal: 0}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.fatForMeal != null ? column.fatForMeal: 0}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.carbsForMeal != null ? column.fatForMeal: 0}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.proteinForMeal != null ? column.fatForMeal: 0}</TableCell>
                 </TableRow>
         </TableBody>
       </Table>
       <Button variant="outlined" startIcon={<AddIcon/>} onClick={()=>{
-        navigate("/addToMeal/" + column.id)
+        navigate("/addToMeal/" + column.id,
+        {
+          state: {
+            date: props.selectedDay,
+            type: column.type
+          }
+        }
+      )
       }}>Add new product</Button>
     </TableContainer>
     ))}
