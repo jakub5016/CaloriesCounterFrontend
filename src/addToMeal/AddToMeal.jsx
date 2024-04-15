@@ -9,19 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, IconButton, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import fetchAllProducts from "./fetchAllProducts";
+import handleSearch from "./handleSearch";
 
-function fetchAllProducts(){
-  return fetch('https://localhost:7261/api/ProductControler')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .catch(error => {
-      console.error('There was a problem with your fetch operation:', error);
-    });
-}
 
 function appendMealList(id, data, amountArray, date=null, type=null){
   let ids = []
@@ -68,35 +58,6 @@ function appendMealList(id, data, amountArray, date=null, type=null){
     })
   }
 
-}
-
-function handleSearch(text, setData, setAmountArray){
-  if ((text != null) && (text != "")){
-    fetch('https://localhost:7261/api/ProductControler/search?search='+text, {method:"POST"})
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      setData(data);
-      setAmountArray(new Array(data.length).fill(0));
-    })
-    .catch(error => {
-      console.error('There was a problem with your fetch operation:', error);
-    });
-  }
-  else{
-    fetchAllProducts()
-      .then(data => {
-        setData(data);
-        setAmountArray(new Array(data.length).fill(0));
-      })
-      .catch(error => {
-        console.error('Error fetching product data:', error);
-      });
-  }
 }
 
 function AddToMeal() {
