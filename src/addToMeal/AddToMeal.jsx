@@ -13,6 +13,7 @@ import fetchAllProducts from "./fetchAllProducts";
 import handleSearch from "./handleSearch";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import fetchDataFromApi from "./fetchDataFromApi";
+import Checkbox from '@mui/material/Checkbox';
 
 function appendMealList(id, data, amountArray, date=null, type=null){
   let ids = []
@@ -174,10 +175,37 @@ function AddToMeal() {
         <Box sx={{marginTop: "20px"}} >
           {loadingApi && <CircularProgress/>}
           {!loadingApi && featchedItemsAPI.length == 0 && <a>Brak wyników</a>}
-          {!loadingApi && featchedItemsAPI.length != 0 &&
-            featchedItemsAPI.map((e)=>{
-              return(<a key={e.name} sx={{ fontWeight: 'bold', color:"green"}}> Total:</a>)
-            })
+          {!loadingApi && featchedItemsAPI.length != 0 && (
+            <div style={{display:"flex",flexDirection:"column"}}>
+            <a>Uzyskane wyniki :</a>
+            <Table>
+              <TableHead>
+                <TableRow>
+                <TableCell align="right" sx={{ fontWeight: 'bold' }}>Name</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>Calories</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>Fat&nbsp;(g)</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>Carbs&nbsp;(g)</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 'bold' }}>Protein&nbsp;(g)</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 'bold', borderBottom: "none"}}></TableCell>
+
+                </TableRow>
+              </TableHead>
+            {featchedItemsAPI.map((e)=>{
+              return(
+                <TableRow>
+                  <TableCell align="right" sx={{fontWeight:"bold"}}>{e.name}</TableCell>
+                  <TableCell align="right">{e.calories}</TableCell>
+                  <TableCell align="right">{e.fat}</TableCell>
+                  <TableCell align="right">{e.carbs}</TableCell>
+                  <TableCell align="right">{e.protein}</TableCell>
+                  <TableCell align="right"><Checkbox/></TableCell>
+                </TableRow>
+              )
+            })}
+            </Table>
+            <Button  variant="outlined" sx={{marginTop:"30px"}}>Dodaj zaznaczone produkty</Button>
+            </div>
+            )
           }
         </Box>
       </div>
