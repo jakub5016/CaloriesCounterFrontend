@@ -46,8 +46,8 @@ export default function ProductsTable(props) {
         <TableBody>
             {
                 column.products.map((row, index) => (
-                <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell component="th" scope="row">
+                <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: "#c5fbfc" } }>
+                    <TableCell component="th" scope="row" sx={{}}>
                     {row.name}
                     </TableCell>
                     <TableCell align="right">{column.ammoutOfProduct[index]}</TableCell>
@@ -56,7 +56,7 @@ export default function ProductsTable(props) {
                     <TableCell align="right">{row.carbs/100*column.ammoutOfProduct[index]}</TableCell>
                     <TableCell align="right">{row.protein}</TableCell>
                     <IconButton 
-                      style={{border:"1px solid", color:"primary", marginRight: "0px"}}
+                      style={{border:"1px solid", color:"primary", marginRight: "0px", backgroundColor:"white"}}
                       onClick={()=>{handleDelete(column.id,row.id)}}
                       ><RemoveIcon/></IconButton>
                 </TableRow>
@@ -66,10 +66,10 @@ export default function ProductsTable(props) {
                 <TableRow>
                 <TableCell sx={{ fontWeight: 'bold', color:"green"}}> Total:</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }}> </TableCell>
-                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.kcalForMeal != null ? column.kcalForMeal: 0}</TableCell>
-                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.fatForMeal != null ? column.fatForMeal: 0}</TableCell>
-                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.carbsForMeal != null ? column.fatForMeal: 0}</TableCell>
-                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.proteinForMeal != null ? column.fatForMeal: 0}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.kcalForMeal != null ? Math.ceil(column.kcalForMeal): 0}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.fatForMeal != null ? Math.ceil(column.fatForMeal): 0}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.carbsForMeal != null ? Math.ceil(column.carbsForMeal): 0}</TableCell>
+                <TableCell align="right"  sx={{ fontWeight: 'bold', color:"green" }} >{column.proteinForMeal != null ? Math.ceil(column.proteinForMeal): 0}</TableCell>
                 </TableRow>
         </TableBody>
       </Table>
