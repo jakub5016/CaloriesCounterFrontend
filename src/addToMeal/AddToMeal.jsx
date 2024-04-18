@@ -65,6 +65,7 @@ function AddToMeal() {
   const { state } = useLocation();
   const [data, setData] = useState(null);
   const [amountArray, setAmountArray] = useState([]);
+  const [openApi, setOpenApi] = useState(false)
   const navigate = useNavigate()
   
   useEffect(() => {
@@ -132,7 +133,10 @@ function AddToMeal() {
 
       <Button onClick={() => {appendMealList(id, data, amountArray, state.date, state.type);  navigate("/"); window.location.reload();}}>Submit</Button>
     </Paper>
-    <ApiAdd/>
+    
+    {openApi && <ApiAdd setOpenApi={setOpenApi}/>}
+    {!openApi && <Button sx={{fontSize:"40px", border:"1px solid"}} onClick={()=>setOpenApi(!openApi)}>.<br/>.<br/>.<br/></Button>}
+
     </div>
   );
 }

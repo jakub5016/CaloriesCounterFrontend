@@ -51,10 +51,10 @@ export default function ProductsTable(props) {
                     {row.name}
                     </TableCell>
                     <TableCell align="right">{column.ammoutOfProduct[index]}</TableCell>
-                    <TableCell align="right">{row.kcal/100*column.ammoutOfProduct[index]}</TableCell>
-                    <TableCell align="right">{row.fat/100*column.ammoutOfProduct[index]}</TableCell>
-                    <TableCell align="right">{row.carbs/100*column.ammoutOfProduct[index]}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
+                    <TableCell align="right">{Math.ceil(row.kcal/100*column.ammoutOfProduct[index])}</TableCell>
+                    <TableCell align="right">{Math.ceil(row.fat/100*column.ammoutOfProduct[index])}</TableCell>
+                    <TableCell align="right">{Math.ceil(row.carbs/100*column.ammoutOfProduct[index])}</TableCell>
+                    <TableCell align="right">{Math.ceil(row.protein/100*column.ammoutOfProduct[index])}</TableCell>
                     <IconButton 
                       style={{border:"1px solid", color:"primary", marginRight: "0px", backgroundColor:"white"}}
                       onClick={()=>{handleDelete(column.id,row.id)}}
