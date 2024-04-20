@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 function ProgressBar(props){
     const classes = useStyles();
     
-    let kcalForDay = 2000
+    let kcalForDay = props.userData.kcalMaintaince
     let proteinForDay = 70
     let fatForDay = 40
     let carbsForDay = 200

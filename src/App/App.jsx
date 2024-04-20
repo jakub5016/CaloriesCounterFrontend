@@ -54,13 +54,14 @@ function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [dayMacro, setDayMacro] = useState({})
   const [user, setUser] = useState(null)
-  console.log(user)
+  const [userData, setUserData] = useState(null)
+
   useEffect(() =>{
     if (user == null){
       fetch("https://localhost:7261/api/User", {method:"GET", headers:{"accept": "text/plain"}})
       .then(resp =>{
         if (resp.status != 204){
-          setUser(true)
+          setUser(resp.json())
         }
         else{
           setUser(null)
@@ -68,6 +69,10 @@ function App() {
       })
     }
   }, [])
+
+  useEffect(()=>{
+    if (user != null){user.then((data)=>{setUserData(data)})}
+  },[user])
 
   useEffect(() => {
     fetchMealsByDate(formatedDate).then(data => {setMeals(data); setLoading(false);});
@@ -92,6 +97,7 @@ function App() {
     setDayMacro(correctDayMacro)
   }, [meals])
 
+  console.log(userData)
   return (
     user != null ? (<div style={{display: "flex", flexDirection:"column"}}>
       <DatesBar width={width + "px"} selectedDay={selectedDay} setSelectedDay={setSelectedDay}/>
@@ -101,7 +107,7 @@ function App() {
         <>
           {meals.length > 0 && <ProductTable meals={meals} setMeals={setMeals} selectedDay={formatedDate}/>}
           <Paper sx={{paddingBottom: "8px"}}>
-            <ProgressBar dayMacro={dayMacro} variant="determinate" value={30}/>
+            <ProgressBar userData={userData} dayMacro={dayMacro} variant="determinate" value={30}/>
           </Paper>
         </>
       )}

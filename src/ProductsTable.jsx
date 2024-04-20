@@ -18,7 +18,6 @@ const mealTypes = [
 ]
 
 function handleDelete(mealId, productId){
-  console.log('https://localhost:7261/api/Meals/' + (mealId) + '/Products/' + (productId))
   fetch('https://localhost:7261/api/Meals/' + (mealId) + '/Products/' + (productId), {method: "DELETE"})
   window.location.reload()
 }

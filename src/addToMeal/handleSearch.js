@@ -1,6 +1,6 @@
 function handleSearch(text, setData, setAmountArray){
     if ((text != null) && (text != "")){
-      fetch('https://localhost:7261/api/ProductControler/search?search='+text, {method:"POST"})
+      fetch('https://localhost:7261/api/Product/search?search='+text, {method:"POST"})
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

@@ -30,7 +30,7 @@ function handleCheck(index, value, fetchedItemsChecked, setFetchedItemsChecked){
 function addApiProducts(fetchedItemsChecked, fetchedItemsAPI) {
     fetchedItemsChecked.forEach((check, index) => {
         if (check === true) {
-            fetch("https://localhost:7261/api/ProductControler", {
+            fetch("https://localhost:7261/api/Product", {
                 method: "POST",
                 headers: {
                     "accept": "text/plain",

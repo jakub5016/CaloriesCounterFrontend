@@ -38,7 +38,6 @@ function Register(){
   const [height, setHeight] = useState(0)
   const [age, setAge] = useState(0)
   const [gender, setGender] = useState(null)
-  console.log(gender)
   return(<Paper sx={{padding:"30px"}}>
       <h1>
         Zarejestruj się
