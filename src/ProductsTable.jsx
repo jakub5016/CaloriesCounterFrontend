@@ -24,7 +24,6 @@ function handleDelete(mealId, productId){
 
 export default function ProductsTable(props) {
   const navigate = useNavigate()
-  
   return (
     <>
     {props.meals.map((column) => (
@@ -49,11 +48,12 @@ export default function ProductsTable(props) {
                     <TableCell component="th" scope="row" sx={{}}>
                     {row.name}
                     </TableCell>
-                    <TableCell align="right">{column.ammoutOfProduct[index]}</TableCell>
-                    <TableCell align="right">{Math.ceil(row.kcal/100*column.ammoutOfProduct[index])}</TableCell>
-                    <TableCell align="right">{Math.ceil(row.fat/100*column.ammoutOfProduct[index])}</TableCell>
-                    <TableCell align="right">{Math.ceil(row.carbs/100*column.ammoutOfProduct[index])}</TableCell>
-                    <TableCell align="right">{Math.ceil(row.protein/100*column.ammoutOfProduct[index])}</TableCell>
+                    {console.log(column.amountOfProduct[index], index)}
+                    <TableCell align="right">{column.amountOfProduct[index]}</TableCell>
+                    <TableCell align="right">{Math.ceil(row.kcal/100*column.amountOfProduct[index])}</TableCell>
+                    <TableCell align="right">{Math.ceil(row.fat/100*column.amountOfProduct[index])}</TableCell>
+                    <TableCell align="right">{Math.ceil(row.carbs/100*column.amountOfProduct[index])}</TableCell>
+                    <TableCell align="right">{Math.ceil(row.protein/100*column.amountOfProduct[index])}</TableCell>
                     <IconButton 
                       style={{border:"1px solid", color:"primary", marginRight: "0px", backgroundColor:"white"}}
                       onClick={()=>{handleDelete(column.id,row.id)}}

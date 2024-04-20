@@ -75,7 +75,7 @@ function App() {
   },[user])
 
   useEffect(() => {
-    fetchMealsByDate(formatedDate).then(data => {setMeals(data); setLoading(false);});
+    fetchMealsByDate(formatedDate).then(data => {setMeals(data);    console.log(data)      ;setLoading(false);});
     setWidth(window.innerWidth)
   }, [selectedDay]);
 
@@ -97,7 +97,6 @@ function App() {
     setDayMacro(correctDayMacro)
   }, [meals])
 
-  console.log(userData)
   return (
     user != null ? (<div style={{display: "flex", flexDirection:"column"}}>
       <DatesBar width={width + "px"} selectedDay={selectedDay} setSelectedDay={setSelectedDay}/>

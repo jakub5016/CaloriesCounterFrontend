@@ -36,13 +36,19 @@ function appendMealList(id, data, amountArray, date=null, type=null){
   }))
 
   if ((id == "undefined") && ((date != null) && (type !=null))){
+    console.log(JSON.stringify({
+      type: type,
+      date: date,
+      productIds : ids,
+      ammoutOfProduct :ammounts
+    }))
     return fetch('https://localhost:7261/api/Meals',{
       method: "POST",
       body: JSON.stringify({
         type: type,
         date: date,
         productIds : ids,
-        ammoutOfProduct :ammounts
+        amountOfProduct :ammounts
       }),
       headers: {
         'accept': 'text/plain', 'Content-Type': 'application/json'
